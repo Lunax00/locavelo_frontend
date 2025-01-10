@@ -1,0 +1,26 @@
+<div class="container mt-4">
+    <h2>Stations</h2>
+    <div class="row">
+      <div
+        class="col-md-4"
+        *ngFor="let station of stations"
+        (click)="selectStation(station)"
+      >
+        <div class="card">
+          <img
+            [src]="'http://127.0.0.1:8000/images/' + station.image"
+            class="card-img-top"
+            alt="Station Image"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ station.name }}</h5>
+            <p class="card-text">{{ station.address }}</p>
+            <p class="card-text">
+              <strong>Vélos disponibles : </strong>{{ station.bikeCount }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

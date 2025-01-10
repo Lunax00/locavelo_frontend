@@ -1,0 +1,36 @@
+<div class="type-velos-container">
+    <h2>Gestion des Types de Vélos</h2>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Prix</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let type of typeVelos">
+          <td>{{ type.id }}</td>
+          <td>{{ type.name }}</td>
+          <td>{{ type.description }}</td>
+          <td>{{ type.price }}</td>
+          <td>
+            <button (click)="editTypeVelo(type)">Modifier</button>
+            <button (click)="deleteTypeVelo(type.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Formulaire pour ajouter / modifier un type de vélo -->
+    <form (ngSubmit)="onSubmit()">
+      <input [(ngModel)]="typeVeloForm.name" name="name" placeholder="Nom" required />
+      <textarea [(ngModel)]="typeVeloForm.description" name="description" placeholder="Description" required></textarea>
+      <input [(ngModel)]="typeVeloForm.price" name="price" type="number" placeholder="Prix" required />
+      <button type="submit">Enregistrer</button>
+    </form>
+  </div>
+  

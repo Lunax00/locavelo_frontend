@@ -1,0 +1,33 @@
+<div class="container mt-4">
+    <h2>Détails du Vélo</h2>
+    <div class="card">
+      <img
+        [src]="'http://127.0.0.1:8000/images/' + bike.type.image"
+        class="card-img-top"
+        alt="Bike Image"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ bike.type.name }}</h5>
+        <p class="card-text">{{ bike.type.description }}</p>
+        <p class="card-text"><strong>Prix : </strong>{{ bike.type.price }} DH</p>
+      </div>
+    </div>
+  
+    <form (ngSubmit)="confirmReservation()">
+      <label for="startDate">Date de départ</label>
+      <input type="datetime-local" [(ngModel)]="reservation.startDate" name="startDate" required />
+  
+      <label for="endDate">Date de dépôt</label>
+      <input type="datetime-local" [(ngModel)]="reservation.endDate" name="endDate" required />
+  
+      <label for="endStation">Station de dépôt</label>
+      <select [(ngModel)]="reservation.endStation" name="endStation" required>
+        <option *ngFor="let station of stations" [value]="station.id">
+          {{ station.name }}
+        </option>
+      </select>
+  
+      <button type="submit" class="btn btn-primary mt-2">Confirmer</button>
+    </form>
+  </div>
+  

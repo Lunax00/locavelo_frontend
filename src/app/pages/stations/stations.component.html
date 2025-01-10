@@ -1,0 +1,44 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Adresse</th>
+      <th>Capacité</th>
+      <th>Coordonnées</th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let station of stations">
+      <td>{{ station.id }}</td>
+      <td>{{ station.name }}</td>
+      <td>{{ station.address }}</td>
+      <td>{{ station.capacity }}</td>
+      <td>{{ station.coordinates }}</td>
+      <td>
+        <img [src]="'http://127.0.0.1:8000/images/' + station.image" alt="Station Image" width="50" />
+      </td>
+      <td>
+        <button (click)="editStation(station)">Editer</button>
+        <button (click)="deleteStation(station.id)">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Formulaire d'ajout/édition -->
+<div>
+  <h3 *ngIf="editingStation">Modifier la Station</h3>
+  <h3 *ngIf="!editingStation">Ajouter une Nouvelle Station</h3>
+  <form (ngSubmit)="saveStation()">
+    <input [(ngModel)]="stationForm.name" name="name" placeholder="Nom" required />
+    <input [(ngModel)]="stationForm.address" name="address" placeholder="Adresse" required />
+    <input [(ngModel)]="stationForm.capacity" name="capacity" type="number" placeholder="Capacité" required />
+    <input [(ngModel)]="stationForm.coordinates" name="coordinates" placeholder="Coordonnées" required />
+    <input type="file" (change)="onFileChange($event)" />
+    <button type="submit">{{ editingStation ? 'Mettre à jour' : 'Ajouter' }}</button>
+    <button type="button" (click)="resetForm()">Annuler</button>
+  </form>
+</div>

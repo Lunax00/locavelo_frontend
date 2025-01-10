@@ -1,0 +1,97 @@
+<div class="filters my-3">
+  <form (ngSubmit)="applyFilters()" class="row g-3">
+    <!-- Filtrer par Email -->
+    <div class="col-md-3">
+      <label for="emailFilter" class="form-label">Email Utilisateur</label>
+      <input
+        type="text"
+        id="emailFilter"
+        class="form-control"
+        [(ngModel)]="filters.email"
+        name="email"
+        placeholder="Entrer un email"
+      />
+    </div>
+
+    <!-- Filtrer par Date de Départ -->
+    <div class="col-md-3">
+      <label for="startDateFilter" class="form-label">Date Départ</label>
+      <input
+        type="date"
+        id="startDateFilter"
+        class="form-control"
+        [(ngModel)]="filters.startDate"
+        name="startDate"
+      />
+    </div>
+
+    <!-- Filtrer par Date d'Arrivée -->
+    <div class="col-md-3">
+      <label for="endDateFilter" class="form-label">Date Arrivée</label>
+      <input
+        type="date"
+        id="endDateFilter"
+        class="form-control"
+        [(ngModel)]="filters.endDate"
+        name="endDate"
+      />
+    </div>
+
+    <!-- Filtrer par Station de Départ -->
+    <div class="col-md-3">
+      <label for="startStationFilter" class="form-label">Station de Départ</label>
+      <input
+        type="text"
+        id="startStationFilter"
+        class="form-control"
+        [(ngModel)]="filters.startStation"
+        name="startStation"
+        placeholder="Nom de la station"
+      />
+    </div>
+
+    <!-- Filtrer par Station d'Arrivée -->
+    <div class="col-md-3">
+      <label for="endStationFilter" class="form-label">Station d'Arrivée</label>
+      <input
+        type="text"
+        id="endStationFilter"
+        class="form-control"
+        [(ngModel)]="filters.endStation"
+        name="endStation"
+        placeholder="Nom de la station"
+      />
+    </div>
+
+    <!-- Bouton Appliquer -->
+    <div class="col-md-12 mt-3">
+      <button type="submit" class="btn btn-primary">Rechercher</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="resetFilters()">Réinitialiser</button>
+    </div>
+  </form>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Email Utilisateur</th>
+        <th>Station de Départ</th>
+        <th>Station d'Arrivée</th>
+        <th>Date de Départ</th>
+        <th>Date d'Arrivée</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservations">
+        <td>{{ reservation.id }}</td>
+        <td>{{ reservation.user.email }}</td>
+        <td>{{ reservation.start_station?.name }}</td>
+        <td>{{ reservation.end_station?.name || 'Non retournée' }}</td>
+        <td>{{ reservation.reservation_time | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ reservation.return_time ? (reservation.return_time | date: 'dd/MM/yyyy HH:mm') : 'Pas encore' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

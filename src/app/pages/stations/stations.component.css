@@ -1,0 +1,25 @@
+.stations-container {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead th {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+img {
+  border-radius: 5px;
+}

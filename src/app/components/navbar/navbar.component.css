@@ -1,0 +1,55 @@
+/* Navbar */
+.navbar {
+  background-color: #f8f9fa; /* Couleur de fond claire */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre pour un effet de relief */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transition fluide */
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #007bff; /* Bleu pour un effet élégant */
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #0056b3; /* Bleu plus foncé au survol */
+}
+
+.nav-link {
+  font-size: 1rem;
+  color: #333; /* Texte noir */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #007bff; /* Bleu au survol */
+  transform: scale(1.1); /* Légère mise en avant */
+}
+
+.navbar-toggler {
+  border: none; /* Enlève la bordure par défaut */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 123, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.collapse:not(.show) {
+  transition: height 0.3s ease;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    text-align: center;
+    margin: 5px 0;
+  }
+}
+
+/* Active link */
+.nav-link.active {
+  font-weight: bold;
+  color: #007bff; /* Bleu marqué pour l'onglet actif */
+  border-bottom: 2px solid #007bff; /* Ligne sous l'onglet actif */
+}

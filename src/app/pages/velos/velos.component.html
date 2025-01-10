@@ -1,0 +1,121 @@
+<div class="bike-management">
+  <h2>Gestion des Vélos</h2>
+
+  <!-- Notifications -->
+  <div *ngIf="message" class="alert alert-info" role="alert">
+    {{ message }}
+  </div>
+
+  <!-- Formulaire pour ajouter un vélo -->
+  <div class="add-bike-form my-3">
+    <h5>Ajouter un Nouveau Vélo</h5>
+    <form (ngSubmit)="addBike()" class="row g-3">
+      <div class="col-md-3">
+        <label for="type_velo_id" class="form-label">Type de Vélo</label>
+        <select
+          id="type_velo_id"
+          class="form-select"
+          [(ngModel)]="newBike.type_velo_id"
+          name="type_velo_id"
+          required
+        >
+          <option *ngFor="let type of typeVelos" [value]="type.id">
+            {{ type.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="state" class="form-label">État</label>
+        <select
+          id="state"
+          class="form-select"
+          [(ngModel)]="newBike.state"
+          name="state"
+          required
+        >
+          <option value="Disponible">Disponible</option>
+          <option value="En réparation">En réparation</option>
+          <option value="Hors service">Hors service</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="station" class="form-label">Station</label>
+        <select
+          id="station"
+          class="form-select"
+          [(ngModel)]="newBike.station_id"
+          name="station"
+          required
+        >
+          <option *ngFor="let station of stations" [value]="station.id">
+            {{ station.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-3 align-self-end">
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tableau des vélos -->
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Type de Vélo</th>
+          <th>État</th>
+          <th>Station</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bike of bikes">
+          <td>{{ bike.id }}</td>
+          <td>
+            <select
+              class="form-select"
+              [(ngModel)]="bike.type_velo_id"
+              (change)="updateBike(bike)"
+            >
+              <option *ngFor="let type of typeVelos" [value]="type.id">
+                {{ type.name }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <select
+              class="form-select"
+              [(ngModel)]="bike.state"
+              (change)="updateBike(bike)"
+            >
+              <option value="Disponible">Disponible</option>
+              <option value="En réparation">En réparation</option>
+              <option value="Hors service">Hors service</option>
+            </select>
+          </td>
+          <td>
+            <select
+              class="form-select"
+              [(ngModel)]="bike.station_id"
+              (change)="updateBike(bike)"
+            >
+              <option *ngFor="let station of stations" [value]="station.id">
+                {{ station.name }}
+              </option>
+            </select>
+          </td>
+          <td class="text-center">
+            <button
+              class="btn btn-sm btn-danger ms-2"
+              (click)="deleteBike(bike.id)"
+              title="Supprimer le vélo">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
