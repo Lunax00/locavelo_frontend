@@ -1,5 +1,11 @@
 <div>
-    <h2>Bienvenue sur Locavelo</h2>
-    <div id="map" style="height: 500px; width: 100%;"></div>
+  <h2>Bienvenue sur Locavelo</h2>
+  <!-- Afficher l'utilisateur connecté -->
+  <div *ngIf="user; else notLoggedIn">
+    <p>Bienvenue, {{ user.name }} ({{ user.email }})</p>
   </div>
- 
+  <ng-template #notLoggedIn>
+    <p>Vous n'êtes pas connecté.</p>
+  </ng-template>
+  <div id="map" style="height: 500px; width: 100%;"></div>
+</div>
