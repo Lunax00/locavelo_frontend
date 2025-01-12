@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,10 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent implements OnInit {
   private map: L.Map | undefined;
   private readonly casablancaCoordinates: [number, number] = [33.5731, -7.5898];
-  stations: any[] = []; // Pour stocker les données des stations
+  stations: any[] = [];  // Pour stocker les données des stations
+  user: any; // Pour stocker l'utilisateur connecté
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private authService: AuthService) {}
 
   ngOnInit(): void {
     this.initMap();
@@ -35,6 +37,9 @@ export class HomeComponent implements OnInit {
     this.http.get<any[]>('http://127.0.0.1:8000/api/stations').subscribe((stations) => {
       this.stations = stations; // Stocker les stations pour d'autres usages
       this.addMarkers(stations);
+
+      // Récupérer les informations de l'utilisateur connecté
+    this.user = this.authService.currentUser;
     });
   }
 
