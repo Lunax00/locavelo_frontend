@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminComponent } from './pages/admin/admin.component';
 import { StationsComponent } from './pages/stations/stations.component';
 import { VelosComponent } from './pages/velos/velos.component';
@@ -18,6 +17,8 @@ import { LogoutComponent } from './pages/auth/logout/logout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { StationDetailsComponent } from './pages/station-details/station-details.component';
 import { BikeDetailsComponent } from './pages/bike-details/bike-details.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,9 +40,15 @@ import { BikeDetailsComponent } from './pages/bike-details/bike-details.componen
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true,
+},],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

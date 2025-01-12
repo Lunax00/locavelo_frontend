@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -7,22 +8,38 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  email: string = '';
-  password: string = '';
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    // Configuration du formulaire
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
   onSubmit() {
-    this.authService.login({ email: this.email, password: this.password }).subscribe(
-      (response) => {
-        localStorage.setItem('access_token', response.access_token);
-        this.router.navigate(['/']); // Redirigez vers une autre page après la connexion
-      },
-      (error) => {
-        this.errorMessage = 'Échec de la connexion. Vérifiez vos informations.';
-      }
-    );
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
+      this.authService.login({ email, password }).subscribe(
+        (response) => {
+          this.router.navigate(['/']); // Redirection après connexion réussie
+        },
+        (error) => {
+          this.errorMessage = 'Échec de la connexion. Vérifiez vos informations.';
+        }
+      );
+    } else {
+      this.errorMessage = 'Veuillez remplir correctement le formulaire.';
+    }
   }
 }
+

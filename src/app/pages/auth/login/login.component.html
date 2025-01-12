@@ -1,23 +1,37 @@
 <div class="container mt-3">
-  <div class="col-md-6 offset-md-3">   
-    <div class="Card">
-      <div class="card-Header">Authentification</div>
+  <div class="col-md-6 offset-md-3">
+    <div class="card">
+      <div class="card-header">Authentification</div>
       <div class="card-body">
-        <form >
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" formControlName="email" class="form-control" id="email" aria-describedby="emailHelp" />
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              id="email"
+              aria-describedby="emailHelp"
+              required
+            />
+            <div id="emailHelp" class="form-text">
+              Nous ne partagerons jamais votre email avec quelqu'un d'autre.
+            </div>
           </div>
-          <div class="mb-3">   
-            <label for="password" class="form-label">Password</label>
-            <input type="password" formControlName="password" class="form-control" id="password" />
+          <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              id="password"
+              required
+            />
           </div>
-          <button class="btn btn-primary" type="Submit">Conexion</button>
+          <button class="btn btn-primary" type="submit">Connexion</button>
+          <p *ngIf="errorMessage" class="text-danger mt-2">{{ errorMessage }}</p>
         </form>
-
       </div>
     </div>
   </div>
 </div>
-  

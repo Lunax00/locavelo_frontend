@@ -11,30 +11,37 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { StationDetailsComponent } from './pages/station-details/station-details.component';
+
 const routes: Routes = [
   {
-      path: 'admin',
-      component: AdminComponent, // AdminComponent comme wrapper principal
-      children: [
-        { path: 'stations', component: StationsComponent },
-        { path: 'velos', component: VelosComponent },
-        { path: 'type-velos', component: TypeVelosComponent },
-        { path: 'reservations', component: ReservationsComponent },
-        { path: 'utilisateurs', component: UsersComponent },
-        { path: '', redirectTo: 'stations', pathMatch: 'full' }, // Redirection par défaut
-      ], canActivate: [AuthGuard] 
-    },{ path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'home', component: HomeComponent },
-  { path: 'station/:id', component: StationDetailsComponent }, // Détails de la station
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      { path: 'stations', component: StationsComponent },
+      { path: 'velos', component: VelosComponent },
+      { path: 'type-velos', component: TypeVelosComponent },
+      { path: 'reservations', component: ReservationsComponent },
+      { path: 'utilisateurs', component: UsersComponent },
+      { path: '', redirectTo: 'stations', pathMatch: 'full' }
+    ],
+    canActivate: [AuthGuard],
+    data: { role: 'admin' }
+  },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { 
+    path: 'station/:id', 
+    component: StationDetailsComponent,
+    canActivate: [AuthGuard]
+  },
   { 
     path: 'reservation/:id', 
-    component: ReservationsComponent, 
-    canActivate: [AuthGuard], // Protégé par un garde (seulement pour utilisateurs connectés)
+    component: ReservationsComponent,
+    canActivate: [AuthGuard] 
   },
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-
-
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' } // Fallback
 ];
 
 @NgModule({
