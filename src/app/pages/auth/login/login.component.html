@@ -1,10 +1,23 @@
-<div>
-    <h2>Login</h2>
-    <form (ngSubmit)="onSubmit()">
-      <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
-      <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-      <p *ngIf="errorMessage">{{ errorMessage }}</p>
-    </form>
+<div class="container mt-3">
+  <div class="col-md-6 offset-md-3">   
+    <div class="Card">
+      <div class="card-Header">Authentification</div>
+      <div class="card-body">
+        <form >
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" formControlName="email" class="form-control" id="email" aria-describedby="emailHelp" />
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">   
+            <label for="password" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control" id="password" />
+          </div>
+          <button class="btn btn-primary" type="Submit">Conexion</button>
+        </form>
+
+      </div>
+    </div>
   </div>
+</div>
   
